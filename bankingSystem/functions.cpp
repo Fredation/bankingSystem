@@ -24,7 +24,7 @@ void write_account(){
 		File.write(reinterpret_cast<char *> (&ac), sizeof(Account));
 	} catch(exception &e){
 		if (errno){
-			//cerr << "*Error: " << e.what() << "account.dat" << " - " << strerror(errno) << endl;
+			cerr << "*Error: " << e.what() << "account.dat" << " - " << strerror(errno) << endl;
 		}
 	}
 
@@ -244,7 +244,7 @@ bool is_file_locked(){
 	return lock;
 }
 
-void removeReg(){
+void updateReg(char* value){
 	HKEY hKey;
     LPCTSTR sk = TEXT("SOFTWARE\\BankingAccounts");
 
@@ -254,7 +254,7 @@ void removeReg(){
     	cout << "Could not find registry: " << "SOFTWARE\\BankingAccounts" << endl;
 	}
 
-	LONG setRes = RegSetValueExA (hKey, "SHA", 0, REG_SZ, (LPBYTE)"", 0);
+	LONG setRes = RegSetValueExA (hKey, "SHA", 0, REG_SZ, (LPBYTE)value, strlen(value)*sizeof(char));
 
     if (setRes != ERROR_SUCCESS) {
        	printf("Error writing to Registry.");

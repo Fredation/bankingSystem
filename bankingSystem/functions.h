@@ -12,5 +12,5 @@ void display_sp(int num);
 void deposit_withdraw(int num, int option);
 std::string checksumFile();
 bool is_file_locked();
-void removeReg();
+void updateReg(char* value);
 #endif

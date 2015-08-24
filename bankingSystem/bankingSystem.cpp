@@ -10,6 +10,7 @@ using namespace std;
 
 int main(int argc, char * argv[])
 {
+	char* sha;
 	char ch;
     int num;
 
@@ -73,10 +74,21 @@ int main(int argc, char * argv[])
             break;
          default :cout<<"\a";
         }
+
+		std::string str = checksumFile();
+		sha = new char[str.size() + 1];
+		std::copy(str.begin(), str.end(), sha);
+		sha[str.size()] = '\0'; // don't forget the terminating 0
+
+		updateReg(sha);
+
         cin.ignore();
         cin.get();
     }while(ch!='8');
 
-	removeReg();
+	updateReg("");
+
+	//free the sha after finished using it
+	delete[] sha;
     return 0;
 }
